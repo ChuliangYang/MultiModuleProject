@@ -9,20 +9,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.Joker;
 import com.example.cl.joke.JokeActivity;
 
-
 public class MainActivity extends AppCompatActivity {
-    private Joker joker;
+    private String joke;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        joker=new Joker();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,21 +44,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-//        Toast.makeText(this, joker.makeMeLaugh(), Toast.LENGTH_LONG).show();
-//        String joke=joker.makeMeLaugh();
+            fetchJokes();
+    }
+
+    private void fetchJokes() {
         new FetchJokeAsynctask(this,new FetchJokeAsynctask.onSuccessListener() {
             @Override
-            public void onSuccess(String result) {
+            public void onSuccess(final String result) {
                 if (!TextUtils.isEmpty(result)) {
-                    Intent intent = new Intent(MainActivity.this, JokeActivity.class);
-                    intent.putExtra("joke", result);
-                    startActivity(intent);
+                        joke=result;
+                        lauchJokeActivity();
                 } else {
                     Toast.makeText(getBaseContext(), "There is no joke today.", Toast.LENGTH_SHORT).show();
                 }
             }
         }).execute();
+    }
 
+    private void lauchJokeActivity() {
+        Intent intent = new Intent(MainActivity.this, JokeActivity.class);
+        intent.putExtra("joke", joke);
+        startActivity(intent);
 
     }
 
