@@ -15,6 +15,7 @@ An app with multiple flavors that uses multiple libraries and Google Cloud Endpo
 <img src="../master/read_me_pictures/free.gif" alt="alt text" width="348" height="611">
 ### Paid
 <img src="../master/read_me_pictures/paid.gif" alt="alt text" width="348" height="611">
+
 ## Libraries  
 * Google App Engine
 * Google Play Service(Ads)
